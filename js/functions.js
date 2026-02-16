@@ -11,16 +11,15 @@ function getNumber1to50() {
 function getFiveNumbers() {
 
     arr = [getNumber1to50()];
-    
-    for (let i=0; i<4;){
+
+    while (arr.lenght < 5) {
         const numb = getNumber1to50();
         // SE il numero generato non è presente 
-        if (!(arr.includes(numb))){
+        if (!(arr.includes(numb))) {
             //lo aggiungo all'array
-            arr.push(numb);
-            //incremento il contatore
-            i++;
+            arr.push(numb)
         }
     }
     return arr;
 }
+
