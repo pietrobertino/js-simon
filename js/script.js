@@ -2,20 +2,26 @@
 
 const countdownNode = document.getElementById("countdown");
 const bodyNode = document.querySelector("body");
+const numberListNode = document.getElementById("numbers-list");
 
 let intervalId;
 let countdown = 30;
 
 console.log(getFiveNumbers())
 
-bodyNode.addEventListener("click", ()=> {
+bodyNode.addEventListener("click", () => {
     // Faccio apparire il timer
-    intervalId = setInterval(function(){
-        countdownNode.innerText = countdown;
+    countdownNode.innerText = countdown;
+    intervalId = setInterval(function () {
         countdown--;
+        countdownNode.innerText = countdown;
     }, 1000)
 
     // Faccio apparire i numeri 
+    const numbers = getFiveNumbers();
+    for (const number of numbers) {
+        numberListNode.innerHTML += `<li>${number}</li>`;
+    }
 })
 
 
