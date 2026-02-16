@@ -1,20 +1,24 @@
-//1) Visualizzare in pagina 5 numeri casuali da 1 a 50 compresi.
 
 const countdownNode = document.getElementById("countdown");
-const bodyNode = document.querySelector("body");
 const numberListNode = document.getElementById("numbers-list");
 const instructionsNode = document.getElementById("instructions");
 const formNode = document.getElementById("answers-form");
+const inputNodes = document.getElementsByClassName("form-control");
+
 
 let intervalId;
 let countdown = 30;
+const numbers = getFiveNumbers();
 
-bodyNode.addEventListener("click", () => {
+//Quando l'utente inizia a giocare
+
+instructionsNode.addEventListener("click", () => {
+
     // Faccio apparire il timer
     countdownNode.innerText = countdown;
     intervalId = setInterval(function () {
         countdown--;
-        if (countdown>=0){
+        if (countdown >= 0) {
             countdownNode.innerText = countdown;
         }
         //Quando scadono i 30 secondi:
@@ -29,30 +33,37 @@ bodyNode.addEventListener("click", () => {
             // Appaiono i 5 input 
             formNode.classList.remove("d-none");
         }
-    }, 1000)
+    }, 100) //cambio momentaneo
 
     // Faccio apparire i numeri 
-    const numbers = getFiveNumbers();
     for (const number of numbers) {
         numberListNode.innerHTML += `<li>${number}</li>`;
     }
+
+})
+
+// Quando l'utente invia il form
+formNode.addEventListener("submit", (event) => {
+    //blocco il refresh della pagina
+    event.preventDefault();
+
+    // salvo i valori inseriti dall'utente all'interno di un array
+    const answers = [];
+    for (const inputNode of inputNodes) {
+        answers.push(inputNode.value);
+    }
+
+    // Confronto l'array di risposta con quello generato dal computer
+    let results = compareArrays(answers, numbers);
+    
+    // Stampo il messaggio finale
+    instructionsNode.innerText = `Hai dato ${results[0]} risposte corrette!`;
+    for (let i = 0; i < results[1].length; i++){
+        instructionsNode.innerText += " " + results[1][i];
+    }
+    
+    // Faccio sparire gli input
+    formNode.classList.add("d-none");
 })
 
 
-
-
-// Modifico la scritta con le istruzioni
-
-// Faccio apparire i 5 input
-
-//3) Il software dice quanti e quali numeri sono stati indovinati
-
-// Faccio sparire il timer e gli input
-
-// Prendo i numeri inseriti dall'utente e li metto in un array
-// Controllo che l'utente non inserisca due numeri uguali, in caso stampo un 
-// messaggio, il resto dei casi sono già gestiti dal form
-// Forse esiste un modo già settato in bootstrap per eseguire questo tipo di controllo?
-// Confronto l'array di risposta con quello generato dal computer
-
-// Stampo il messaggio finale

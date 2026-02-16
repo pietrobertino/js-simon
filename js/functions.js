@@ -12,14 +12,27 @@ function getFiveNumbers() {
 
     arr = [getNumber1to50()];
 
-    while (arr.lenght < 5) {
+    while (arr.length < 5) {
         const numb = getNumber1to50();
         // SE il numero generato non è presente 
         if (!(arr.includes(numb))) {
             //lo aggiungo all'array
-            arr.push(numb)
+            arr.push(numb);
         }
     }
     return arr;
 }
 
+function compareArrays(arr1, arr2) {
+    let numb = 0;
+    let list = [];
+    for (let i = 0; i < arr1.length; i++){ 
+        for (let k = 0; k < arr2.length; k++){
+            if (arr1[i] == arr2[k]){
+                numb++;
+                list.push(arr1[i]);
+            }
+        }
+    }
+    return [numb, list];
+}
