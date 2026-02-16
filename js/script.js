@@ -3,18 +3,32 @@
 const countdownNode = document.getElementById("countdown");
 const bodyNode = document.querySelector("body");
 const numberListNode = document.getElementById("numbers-list");
+const instructionsNode = document.getElementById("instructions");
+const formNode = document.getElementById("answers-form");
 
 let intervalId;
 let countdown = 30;
-
-console.log(getFiveNumbers())
 
 bodyNode.addEventListener("click", () => {
     // Faccio apparire il timer
     countdownNode.innerText = countdown;
     intervalId = setInterval(function () {
         countdown--;
-        countdownNode.innerText = countdown;
+        if (countdown>=0){
+            countdownNode.innerText = countdown;
+        }
+        //Quando scadono i 30 secondi:
+        else {
+            // Il timer sparisce
+            clearInterval(intervalId);
+            countdownNode.innerText = "";
+            // I numeri spariscono
+            numberListNode.classList.add("d-none");
+            // Le istruzioni cambiano
+            instructionsNode.innerText = "Il tempo è scaduto! Inserisci i numeri che hai memorizzato, l'ordine non è importante";
+            // Appaiono i 5 input 
+            formNode.classList.remove("d-none");
+        }
     }, 1000)
 
     // Faccio apparire i numeri 
@@ -26,9 +40,6 @@ bodyNode.addEventListener("click", () => {
 
 
 
-//2) I numeri scompaiono e appaiono 5 input per inserire le risposte
-
-// Faccio sparire i numeri 
 
 // Modifico la scritta con le istruzioni
 
